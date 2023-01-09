@@ -106,7 +106,7 @@ class ListaEnlazada:
         self.items.pop()
     def concatenar(self, lista):
         self.items += lista.items
-        
+"""    
 nodo = Nodo(1,2)
 nodo1 = Nodo(3,4)
 lista = ListaEnlazada()
@@ -121,10 +121,11 @@ lista.agregar_final(nodo3)
 
 lista.concatenar(lista1)
 print(lista)
+"""
 
 # **Ejercicio 8**: Modifique el ejercicio anterior para que pertenece e imprimir sean métodos recursivos en Nodo 
 # y la clase ListaEnlazada simplemente llame a estos.
-
+"""
 class Nodo:
     def __init__(self, valor, siguiente = None):
         self.valor = valor
@@ -161,7 +162,70 @@ class ListaNativa(ListaEnlazada):     #REVER
         self.items = []
         for i in lista:
             self.items.append(i)
+"""
+#                                       EJERC. STACKS
 
+# **Ejercicio 10**: Basándose en el TAD de pila, implementar una clase Stack con listas de Python
+
+class Stack:
+    def __init__(self):
+        self.items = []
+    def __str__(self):
+        return str(self.items)
+    def push(self,item):
+        self.items.append(item)
+    def pop(self):
+        return self.items.pop()
+    def isEmpty(self):
+        return self.items == []
+
+# **Ejercicio 11**: Dado un Stack, volcar su contenido en otro Stack, verificar que al vaciar el contenido de este, 
+# los elementos salen en el mismo orden en que ingresaron al primero. 
+# Utilizar solamente los métodos del TAD pila para resolver.
+"""
+pila1 = Stack()
+pila1.push(1)
+pila1.push(2)
+pila2 = Stack()
+
+for i in pila1.items:
+    pila2.push(i)
+    
+print(pila2)
+"""
+
+# **Ejercicio 12**: Dado un Stack de números, reordenarlos para que estén abajo los impares y arriba los pares, 
+# pero que entre números del mismo tipo preserven el orden. 
+# *Ayuda: utilizar dos Stacks auxiliares de números pares e impares respectivamente*.
+"""
+Ejemplo:
+
+4      4
+3  =>  2
+2      3
+1      1
+
+
+nros = Stack()
+nros.push(2)
+nros.push(4)
+nros.push(1)
+nros.push(3) 
+
+pares = Stack()
+impares =  Stack()
+
+for i in nros.items:
+    if i%2==0:
+        pares.push(i)
+    else:
+        impares.push(i)
+
+print(pares)
+print(impares)
+"""
+
+#                                       EJERC. QUEUES
 
 
 

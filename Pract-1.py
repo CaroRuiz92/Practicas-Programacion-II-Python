@@ -227,11 +227,46 @@ print(impares)
 
 #                                       EJERC. QUEUES
 
+# **Ejercicio 15**: Basándose en el TAD de cola, implementar una clase Queue con listas de Python.
+
+class Queue:
+    def __init__(self):
+        self.items = []
+    def __str__(self):
+        return str(self.items)
+    def insert(self, nodo):
+        self.items.append(nodo)
+    def isEmpty(self):
+        return self.items == []
+
+# **Ejercicio 16**: Implementar FastQueue, una cola que internamente utiliza dos stacks de la siguiente manera:
+#* Inserta por uno de los stacks
+#* Remueve por el otro stack
+#* Cuando queremos remover de stack vacío, primero volcamos el stack de inserción en este y seguimos normalmente
 
 
-
-
-
+class FastQueue:
+    def __init__(self, stack1, stack2=None):
+        self.stack1 = stack1
+        self.stack2 = stack2
+    def isEmpty(self):
+        return self.stack1 == None
+    def insert(self, stack):
+        nuevo = Nodo(stack)
+        if self.stack1 is None:
+            self.stack1 = nuevo
+            self.stack2 = self.stack1
+        else:
+            self.stack2.siguiente = nuevo
+            self.stack2 = nuevo
+    def remove(self,stack):
+        data = self.stack1.valor
+        self.stack1 = self.stack1.siguiente
+        if self.stack1 is None:
+            self.stack2 is None
+        return data
+    
+    #COMPLETAR
 
 
 

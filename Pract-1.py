@@ -8,13 +8,13 @@
 # # que respete el comportamiento descripto. 
 # *Ayuda: para construir un conjunto pueden pasarle una lista o usar la sintaxis *args 
 # y que reciba una cantidad arbitraria de argumentos.*
-"""
+
 class Celda:
     def __init__(self, *args):
         self.items = args[0]
     def __str__(self):
         return str(f"{self.items}")
-    
+"""   
 prueba = Celda(2,3)
 print(prueba)
 """
@@ -25,7 +25,7 @@ print(prueba)
 
 # **Ejercicio 4**: Basándose en la interfaz hecha en el ejercicio anterior, implementar en Python una clase Conjunto 
 # que respete el comportamiento descrito. Escribir tests que prueben el correcto funcionamiento de dicha interfaz.
-"""
+
 class Conjunto:
     def __init__(self):
         self.items = (1,2,3)
@@ -33,7 +33,7 @@ class Conjunto:
         return str(self.items)
     def exits(self, other):
         return other in self.items
-    
+"""  
 prueba1 = Conjunto()
 print(prueba1.exits(4))
 """
@@ -41,13 +41,13 @@ print(prueba1.exits(4))
 # **Ejercicio 5**: Hacer otra implementación de Conjunto, llamada ConjuntoNativo, 
 # que internamente almacene elementos utilizando *set*. 
 # Para ello investigue el funcionamiento de dicha estructura en Python.
-"""
+
 class ConjuntoNativo:
     def __init__(self, *args):
         self.items = set(args)
     def __str__(self):
         return str(self.items)
-
+"""
 prueba2 = ConjuntoNativo(1,2,3,4)
 print(prueba2)
 """
@@ -55,7 +55,7 @@ print(prueba2)
 # **Ejercicio 6**: Rediseñe la implementación de Celda para que siga conteniendo un único elemento por vez, 
 # pero se adhiera a la interfaz de Conjunto, o sea que acepte múltiples elementos en su constructor 
 # y que podamos preguntar por sus elementos. Llámela CeldaConjunto.
-"""
+
 class CeldaConjunto:
     def __init__(self, *args):
         self.items = args[0]
@@ -63,7 +63,7 @@ class CeldaConjunto:
         return str(f"{self.items}")
     def exits(self, other):
         return other is self.items
-
+"""
 prueba3 = CeldaConjunto(2,3)
 print(prueba3.exits(4))
 """
@@ -125,7 +125,7 @@ print(lista)
 
 # **Ejercicio 8**: Modifique el ejercicio anterior para que pertenece e imprimir sean métodos recursivos en Nodo 
 # y la clase ListaEnlazada simplemente llame a estos.
-"""
+
 class Nodo:
     def __init__(self, valor, siguiente = None):
         self.valor = valor
@@ -155,14 +155,14 @@ class ListaEnlazada(Nodo):     #REVER
         self.items += lista.items
 
 # **Ejercicio 9**: Implemente una clase ListaNativa que respete el TAD anterior, 
-# y que internamente utilice lista nativas de Python.
+# y que internamente utilice listas nativas de Python.
 
 class ListaNativa(ListaEnlazada):     #REVER
     def __init__(self,lista):
         self.items = []
         for i in lista:
             self.items.append(i)
-"""
+
 #                                       EJERC. STACKS
 
 # **Ejercicio 10**: Basándose en el TAD de pila, implementar una clase Stack con listas de Python
@@ -236,21 +236,23 @@ class Queue:
         return str(self.items)
     def insert(self, nodo):
         self.items.append(nodo)
+    def remove(self):
+        self.items.pop(0)
     def isEmpty(self):
         return self.items == []
 
 # **Ejercicio 16**: Implementar FastQueue, una cola que internamente utiliza dos stacks de la siguiente manera:
-#* Inserta por uno de los stacks
-#* Remueve por el otro stack
-#* Cuando queremos remover de stack vacío, primero volcamos el stack de inserción en este y seguimos normalmente
-
+# * Inserta por uno de los stacks
+# * Remueve por el otro stack
 
 class FastQueue:
     def __init__(self, stack1, stack2=None):
         self.stack1 = stack1
         self.stack2 = stack2
+
     def isEmpty(self):
         return self.stack1 == None
+
     def insert(self, stack):
         nuevo = Nodo(stack)
         if self.stack1 is None:
@@ -259,17 +261,60 @@ class FastQueue:
         else:
             self.stack2.siguiente = nuevo
             self.stack2 = nuevo
-    def remove(self,stack):
+
+    def remove(self, stack):
         data = self.stack1.valor
         self.stack1 = self.stack1.siguiente
         if self.stack1 is None:
-            self.stack2 is None
+            self.stack2 = None
         return data
     
-    #COMPLETAR
+# **Ejercicio 17**: Implemente una PriorityQueue, una cola que, si bien tiene la misma interfaz que las colas normales,
+# no se comporta de la misma manera. En este caso, estarán primeros los elementos con *mayor prioridad*,
+# # la mayor prioridad puede ser lo que sea, pero con números sería típicamente los números más pequeños o más grandes.
+# Ejemplo: Metemos 5, 2, 6, 1. Sacamos 1, 2, 5, 6
 
+class PriorityQueue(Queue):
+    def remove(self):
+        mayor = 0
+        for i in range(1, len(self.items)):
+            if self.items[i] > self.items[mayor]:
+                mayor = i   # Guarda index
+        item = self.items[mayor]   # Guarda valor
+        self.items[mayor:mayor+1] = []   # Borra valor
+        return item
 
+# **Ejercicio 18**: Se tiene una cola del supermercado.
+# Cada cliente tiene un carrito con los productos apilados, por lo que al ponerlos en la cinta salen el orden inverso
+# en el que fueron puestos en el mismo.
+# Dada una cola de carritos con productos, modele el problema con las estructuras vistas hasta ahora y
+# escriba una clase Cinta que contenga una cola de carritos y tenga un método *historial* que
+# muestre todos los productos que la lectora vería en el orden descrito.
 
+class Cinta:                                   #REVER
+    def __init__(self, carritos):
+        self.carritos = carritos
+    def historial(self):
+        productos = []
+        while not self.carritos.isEmpty():  # Queue
+            carrito = self.carritos.remove()
+            while not carrito.isEmpty():  # Stack
+                producto = carrito.pop()
+                productos.append(str(producto))
+        return productos
 
+class Producto:
+    def __init__(self, nombre):
+        self.nombre = nombre
 
+    def __str__(self):
+        return str(self.nombre)
+
+    def carrito(*nombres):
+        carrito = Stack()
+
+        for nombre in nombres:
+            carrito.push(nombre)
+
+        return carrito
 

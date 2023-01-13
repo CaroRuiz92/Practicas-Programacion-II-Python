@@ -323,7 +323,7 @@ class Producto:
 # Diseño de clase Tree:
 
 class Tree:
-    def __init__(self, label, left=None, right=None):                   #REVISAR VALORES NONE
+    def __init__(self, label, left=None, right=None):
         self.label = label
         self.left = left
         self.right = right
@@ -331,7 +331,7 @@ class Tree:
     def __str__(self):
         return str(self.label)
 
-    def printPreOrder(self):
+    def printPreOrder(self):               #REVISAR
         if self == None:
             return
         print(self.label)
@@ -351,6 +351,32 @@ class Tree:
         self.left.printPreOrder()
         self.right.printPreOrder()
         print(self.label)
+
+    def cant_nodos(self):
+        cant = 1
+        cant += self.left.nodos() if self.left is not None else 0
+        cant += self.right.nodos() if self.right is not None else 0
+        return cant
+
+    def menor_mayor(self):
+        minimo = maximo = self.value
+
+        if self.left is not None:
+            (lminimo, lmaximo) = self.left.menor_mayor()
+            minimo = min(minimo, lminimo)
+            maximo = max(maximo, lmaximo)
+
+        if self.right is not None:
+            (rminimo, rmaximo) = self.right.menor_mayor()
+            minimo = min(minimo, rminimo)
+            maximo = max(maximo, rmaximo)
+
+        return (minimo, maximo)
+
+    def altura(self):
+        altural = 0 if self.left is None else self.left.altura()
+        alturar = 0 if self.right is None else self.right.altura()
+        return 1 + max(altural, alturar)
 
 def insertTree(data, tree):
     if data == None:

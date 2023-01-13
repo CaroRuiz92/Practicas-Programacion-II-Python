@@ -320,43 +320,68 @@ class Producto:
 
 #                                     EJERC. BINARY TREE
 
-# **Ejercicio 19**: Utilizando la clase Tree presentada a continuación
-#
+# Diseño de clase Tree:
+
 class Tree:
-    def __init__(self, value, left=None, right=None):
-        self.value = value
+    def __init__(self, label, left=None, right=None):                   #REVISAR VALORES NONE
+        self.label = label
         self.left = left
         self.right = right
 
     def __str__(self):
-        return str(self.value)
-# Implemente y verifique tests los siguientes métodos.
-# Ayuda: pensar que cada árbol tienen objetos a su izquierda y derecha, árboles como sus hijos*.
-# **nodos**: devuelve la cantidad de nodos del árbol
-# **menor_mayor**: devuelve en una tupla el menor y el mayor elemento del árbol
-# **buscar**: busca si un elemento está o no en el árbol
-# **altura**: calcula la altura del árbol, la distancia desde la raíz hasta la hoja más lejana
+        return str(self.label)
 
-def cant_nodos(tree):
-    cant = 0                #REVISAR
+    def printPreOrder(self):
+        if self == None:
+            return
+        print(self.label)
+        self.left.printPreOrder()
+        self.right.printPreOrder()
+
+    def printInOrder(self):
+        if self.label == None:
+            return
+        self.left.printPreOrder()
+        print(self.label)
+        self.right.printPreOrder()
+
+    def printPostOrder(self):
+        if self.label == None:
+            return
+        self.left.printPreOrder()
+        self.right.printPreOrder()
+        print(self.label)
+
+def insertTree(data, tree):
+    if data == None:
+        return Tree(data)
+    else:
+        if data < tree.label:
+            return Tree(tree.label,insertTree(data,tree.left),tree.right)
+        elif data > tree.label:
+            return Tree(tree.label, tree.left, insertTree(data, tree.right))
+        else:
+            return tree
+
+def createTree(lista):
+    arbol = None
+    while lista != []:
+        item = lista.pop()
+        arbol = insertTree(item, arbol)
+    return arbol
+
+def buscar(data, tree):
     if tree is None:
-        return
-    cant += 1
-    cant_nodos(tree.left)
-    cant += 1
-    cant_nodos(tree.right)
-    cant += 1
-    return cant
+        return f"{data} no está en este árbol"
+    else:
+        if data < tree.label:
+            return buscar(data, tree.left)
+        elif data > tree.label:
+            return buscar(data, tree.right)
+        else:
+            return f"{data} sí está en este árbol"
 
-ejemplo = Tree(1)
 rama1 = Tree(2)
 rama2 = Tree(3)
-rama3 = Tree(None)
-rama4 = Tree(None)
-
-ejemplo.left = rama1
-ejemplo.right = rama2
-rama1.left = rama3
-rama2.right = rama4
-
-print(cant_nodos(ejemplo))
+rama = Tree(1, rama1, rama2)
+print(buscar(1, rama))

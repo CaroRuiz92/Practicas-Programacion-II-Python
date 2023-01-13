@@ -318,3 +318,45 @@ class Producto:
 
         return carrito
 
+#                                     EJERC. BINARY TREE
+
+# **Ejercicio 19**: Utilizando la clase Tree presentada a continuación
+#
+class Tree:
+    def __init__(self, value, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+    def __str__(self):
+        return str(self.value)
+# Implemente y verifique tests los siguientes métodos.
+# Ayuda: pensar que cada árbol tienen objetos a su izquierda y derecha, árboles como sus hijos*.
+# **nodos**: devuelve la cantidad de nodos del árbol
+# **menor_mayor**: devuelve en una tupla el menor y el mayor elemento del árbol
+# **buscar**: busca si un elemento está o no en el árbol
+# **altura**: calcula la altura del árbol, la distancia desde la raíz hasta la hoja más lejana
+
+def cant_nodos(tree):
+    cant = 0                #REVISAR
+    if tree is None:
+        return
+    cant += 1
+    cant_nodos(tree.left)
+    cant += 1
+    cant_nodos(tree.right)
+    cant += 1
+    return cant
+
+ejemplo = Tree(1)
+rama1 = Tree(2)
+rama2 = Tree(3)
+rama3 = Tree(None)
+rama4 = Tree(None)
+
+ejemplo.left = rama1
+ejemplo.right = rama2
+rama1.left = rama3
+rama2.right = rama4
+
+print(cant_nodos(ejemplo))

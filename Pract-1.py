@@ -321,6 +321,11 @@ class Producto:
 #                                     EJERC. BINARY TREE
 
 # Diseño de clase Tree:
+# Implemente y verifique los siguientes métodos.
+# * **nodos**: devuelve la cantidad de nodos del árbol
+# * **menor_mayor**: devuelve en una tupla el menor y el mayor elemento del árbol
+# * **buscar**: busca si un elemento está o no en el árbol
+# * **altura**: calcula la altura del árbol, la distancia desde la raíz hasta la hoja más lejana
 
 class Tree:
     def __init__(self, label, left=None, right=None):
@@ -332,21 +337,21 @@ class Tree:
         return str(self.label)
 
     def printPreOrder(self):               #REVISAR
-        if self == None:
+        if self is None:
             return
         print(self.label)
         self.left.printPreOrder()
         self.right.printPreOrder()
 
-    def printInOrder(self):
-        if self.label == None:
+    def printInOrder(self):               #REVISAR
+        if self is None:
             return
         self.left.printPreOrder()
         print(self.label)
         self.right.printPreOrder()
 
-    def printPostOrder(self):
-        if self.label == None:
+    def printPostOrder(self):               #REVISAR
+        if self is None:
             return
         self.left.printPreOrder()
         self.right.printPreOrder()
@@ -354,12 +359,12 @@ class Tree:
 
     def cant_nodos(self):
         cant = 1
-        cant += self.left.nodos() if self.left is not None else 0
-        cant += self.right.nodos() if self.right is not None else 0
+        cant += self.left.cant_nodos() if self.left is not None else 0
+        cant += self.right.cant_nodos() if self.right is not None else 0
         return cant
 
     def menor_mayor(self):
-        minimo = maximo = self.value
+        minimo = maximo = self.label
 
         if self.left is not None:
             (lminimo, lmaximo) = self.left.menor_mayor()
@@ -410,4 +415,4 @@ def buscar(data, tree):
 rama1 = Tree(2)
 rama2 = Tree(3)
 rama = Tree(1, rama1, rama2)
-print(buscar(1, rama))
+print(rama.printPreOrder())

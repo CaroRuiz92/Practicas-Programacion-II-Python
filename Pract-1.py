@@ -337,7 +337,7 @@ class Tree:
         return str(self.label)
 
     def printPreOrder(self):               #REVISAR
-        if self is None:
+        if self.label is None:
             return
         print(self.label)
         self.left.printPreOrder()
@@ -388,7 +388,7 @@ def insertTree(data, tree):
         return Tree(data)
     else:
         if data < tree.label:
-            return Tree(tree.label,insertTree(data,tree.left),tree.right)
+            return Tree(tree.label, insertTree(data,tree.left), tree.right)
         elif data > tree.label:
             return Tree(tree.label, tree.left, insertTree(data, tree.right))
         else:

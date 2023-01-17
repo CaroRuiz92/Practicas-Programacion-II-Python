@@ -416,3 +416,35 @@ rama1 = Tree(2)
 rama2 = Tree(3)
 rama = Tree(1, rama1, rama2)
 print(rama.printPreOrder())
+
+#                                     PRUEBA DE HASH TABLE
+
+class NodoHash:
+    def __init__(self, key=None, element=None, next=None):
+        self.key = key
+        self.element = element
+        self.next = next
+    def __str__(self):
+        return f"{self.key}, {self.element}"
+class HashTable:
+    def __init__(self, capacity, hashfunc):
+        self.capacity = capacity
+        self.hash = hashfunc
+        self.T = [None] * self.capacity
+    def insert(self, key, element):
+        pass
+    def search(self, key):
+        pass
+    def delete(self, key):
+        pass
+
+class HashTableChaining(HashTable):
+    def insert(self, key, element):
+        node = NodoHash(key, element)
+        index = self.hash(key)
+        node.next = self.T[index]
+        self.T[index] = node
+
+# REVER ARMADO
+
+

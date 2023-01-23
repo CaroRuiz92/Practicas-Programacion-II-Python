@@ -16,14 +16,16 @@ def ordenar_por_seleccion(A):
         A[posicion], A[item1] = A[item1], A[posicion]
     return str(A)
 
+# Ordenamiento por inserción
+
 def ordenar_por_insercion(A):
     long = len(A)
-    for pos in range(1,long):
+    for pos in range(1, long):
         item = A[pos]
         anterior = pos-1
         while anterior >= 0:
             if item < A[anterior]:
-                A[anterior+1] = A[anterior]
+                A[anterior+1] = A[anterior]   # se reemplaza el valor evaluado por el anterior (adelanta)
                 anterior = anterior-1
             else:
                 break
@@ -31,7 +33,6 @@ def ordenar_por_insercion(A):
     return str(A)
 
 
-
-lista = [5,2,6,1]
+lista = [5, 2, 6, 1]
 print(ordenar_por_seleccion(lista))
 print(ordenar_por_insercion(lista))

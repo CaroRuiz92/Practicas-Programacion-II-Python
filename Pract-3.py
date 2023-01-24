@@ -32,7 +32,21 @@ def ordenar_por_insercion(A):
         A[anterior+1] = item
     return str(A)
 
+# Quicksort
+def pivote(A):
+    return A[0]   # elección arbitraria
+def quicksort(A):
+    pivote_elegido = pivote(A)
+    menores = [x for x in A if x < pivote_elegido]
+    mayores = [x for x in A if x > pivote_elegido]
 
-lista = [5, 2, 6, 1]
+    men_ord = quicksort(menores)
+    may_ord = quicksort(mayores)
+
+    return men_ord + [pivote] + may_ord
+
+
+lista = [5,3,1,7]
 print(ordenar_por_seleccion(lista))
 print(ordenar_por_insercion(lista))
+print(quicksort(lista))

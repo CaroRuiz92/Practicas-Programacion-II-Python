@@ -46,7 +46,7 @@ def quicksort(A):
     men_ord = quicksort(menores)
     may_ord = quicksort(mayores)
 
-    return men_ord + [pivote] + may_ord
+    return men_ord + [pivote_elegido] + may_ord
 """
 lista = [5,3,1,7]
 print(ordenar_por_seleccion(lista))
@@ -144,7 +144,36 @@ def verificar_unicos(lista):
             cont.append(i)
     return f"La lista tiene {len(cont)} elementos únicos"
 
-
+"""
 ej = [1, 5, 3, 3, 5, 1]
 print(verificar_unicos(ej))
+"""
+
+# **Ejercicio 4**: Reescribir quicksort para que tenga un parámetro más: una función de comparación.
+# La función de comparación será cualquiera que, dados dos elementos de la lista, devuelve:
+# - -1 si el primer elemento va antes
+# - 0 si son iguales
+# - 1 si el segundo elemento va antes.
+# Esto es así para facilitar la implementación, ya que no incluimos el pivot en nuestra recursión.
+
+def comparacion(a, b):
+    if a == b:
+        return "0"
+    elif a < b:
+        return "-1"
+    else:
+        return "1"
+
+def elegir_pivote(lista):
+    return int(lista[0])
+
+def quicksort_b(lista, compare):
+    if len(lista) < 2:
+        return True
+    piv = elegir_pivote(lista)
+    menores = [x for x in lista if comparacion(x, piv) == "-1"]
+    mayores = [x for x in lista if comparacion(x, piv) == "1"]
+    return [quicksort_b(menores, comparacion)] + [piv] + [quicksort_b(mayores, comparacion)]
+
+# COMPLETAR
 

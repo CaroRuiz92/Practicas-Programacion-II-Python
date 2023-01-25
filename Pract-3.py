@@ -16,7 +16,7 @@ def ordenar_por_seleccion(A):
                 minimo = A[item2]
                 posicion = item2
         A[posicion], A[item1] = A[item1], A[posicion]
-    return str(A)
+    return A
 
 # Ordenamiento por inserción
 
@@ -32,7 +32,7 @@ def ordenar_por_insercion(A):
             else:
                 break
         A[anterior+1] = item
-    return str(A)
+    return A
 
 # Quicksort
 
@@ -54,7 +54,7 @@ print(ordenar_por_insercion(lista))
 print(quicksort(lista))
 """
 
-#                   Ejercicios
+#                               Ejercicios
 
 # **Ejercicio 1**: Implementar una cola de prioridad que internamente mantenga
 # los elementos ordenados utilizando ordenamiento por inserción.
@@ -116,18 +116,17 @@ def verificar_orden2(lista):   # más general para cualquier ejemplo
             return False   # si no está de forma ascendente
     return True
 
-
 def bogosort(lista):
     while not verificar_orden2(lista):
         random.shuffle(lista)
     return lista
 
-
+"""
 ejemplo = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 ejemplo1 = [5, 6, 7, 8, 9, 10, 1, 2, 3, 4]
 print(verificar_orden2(ejemplo))
 print(bogosort(ejemplo1))
-
+"""
 
 # **Ejercicio 3**: Se les da una lista de números enteros. Determinar la cantidad de elementos únicos, o sea,
 # la cantidad de elementos ignorando los repetidos.
@@ -136,3 +135,16 @@ print(bogosort(ejemplo1))
 # # Salida: 3
 # Resolver de forma eficiente: que sea capaz de computar la solución
 # para una lista de 10000 elementos en aproximadamente un segundo.
+
+def verificar_unicos(lista):
+    items = ordenar_por_seleccion(lista)
+    cont = []
+    for i in items:
+        if i not in cont:
+            cont.append(i)
+    return f"La lista tiene {len(cont)} elementos únicos"
+
+
+ej = [1, 5, 3, 3, 5, 1]
+print(verificar_unicos(ej))
+

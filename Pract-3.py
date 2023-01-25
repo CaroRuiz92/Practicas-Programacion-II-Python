@@ -84,21 +84,21 @@ class PriorityQueue:
     def isEmpty(self):
         return self.items == []
 
-
+"""
 prueba = PriorityQueue()
 prueba.insert(2)
 prueba.insert(1)
 prueba.insert(5)
 prueba.insert(4)
 print(prueba)
-
+"""
 
 # **Ejercicio 2**: Escribir una función que verifique eficientemente si una lista está ordenada,
 # utilícela para implementar _bogosort_:
 # Utilice bogosort para ordenar [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] y observe el tiempo que le toma.
 
 # Versión 1:
-def verificar_orden1(lista):
+def verificar_orden1(lista):   # específico para el ejemplo dado
     if len(lista) < 2:
         return "Ordenada de forma trivial"
     for num in range(len(lista)-1):
@@ -107,25 +107,25 @@ def verificar_orden1(lista):
         else:
             return "No está ordenada"
 
-
-def verificar_orden2(lista):
+# Versión 2:
+def verificar_orden2(lista):   # más general para cualquier ejemplo
     if len(lista) < 2:
         return True
-    for i in range(len(lista) - 1):
-        if lista[i] > lista[i + 1]:
-            return False
+    for i in range(len(lista)-1):
+        if lista[i] > lista[i+1]:
+            return False   # si no está de forma ascendente
     return True
 
 
 def bogosort(lista):
-    from random import shuffle
     while not verificar_orden2(lista):
         random.shuffle(lista)
     return lista
 
+
 ejemplo = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 ejemplo1 = [5, 6, 7, 8, 9, 10, 1, 2, 3, 4]
-print(verificar_orden1(ejemplo))
+print(verificar_orden2(ejemplo))
 print(bogosort(ejemplo1))
 
 

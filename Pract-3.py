@@ -1,4 +1,5 @@
 # ALGORITMOS DE ORDENAMIENTO
+
 import random
 
 
@@ -46,7 +47,8 @@ def quicksort(A):
     men_ord = quicksort(menores)
     may_ord = quicksort(mayores)
 
-    return men_ord + [pivote_elegido] + may_ord
+    return [men_ord] + [pivote_elegido] + [may_ord]
+
 """
 lista = [5,3,1,7]
 print(ordenar_por_seleccion(lista))
@@ -97,34 +99,23 @@ print(prueba)
 # utilícela para implementar _bogosort_:
 # Utilice bogosort para ordenar [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] y observe el tiempo que le toma.
 
-# Versión 1:
-def verificar_orden1(lista):   # específico para el ejemplo dado
-    if len(lista) < 2:
-        return "Ordenada de forma trivial"
-    for num in range(len(lista)-1):
-        if lista[num] == num+1:
-            return "Está ordenada"
-        else:
-            return "No está ordenada"
-
-# Versión 2:
-def verificar_orden2(lista):   # más general para cualquier ejemplo
+def verificar_orden(lista):
     if len(lista) < 2:
         return True
     for i in range(len(lista)-1):
         if lista[i] > lista[i+1]:
-            return False   # si no está de forma ascendente
+            return False
     return True
 
 def bogosort(lista):
-    while not verificar_orden2(lista):
+    while not verificar_orden(lista):
         random.shuffle(lista)
     return lista
 
 """
 ejemplo = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 ejemplo1 = [5, 6, 7, 8, 9, 10, 1, 2, 3, 4]
-print(verificar_orden2(ejemplo))
+print(verificar_orden(ejemplo))
 print(bogosort(ejemplo1))
 """
 
@@ -156,24 +147,66 @@ print(verificar_unicos(ej))
 # - 1 si el segundo elemento va antes.
 # Esto es así para facilitar la implementación, ya que no incluimos el pivot en nuestra recursión.
 
-def comparacion(a, b):
-    if a == b:
-        return "0"
+def comp(a,b):
+    if a > b:
+        return 1
     elif a < b:
-        return "-1"
+        return -1
     else:
-        return "1"
+        return 0
 
-def elegir_pivote(lista):
-    return int(lista[0])
-
-def quicksort_b(lista, compare):
+def quicksort_b(lista):
     if len(lista) < 2:
         return True
-    piv = elegir_pivote(lista)
-    menores = [x for x in lista if comparacion(x, piv) == "-1"]
-    mayores = [x for x in lista if comparacion(x, piv) == "1"]
-    return [quicksort_b(menores, comparacion)] + [piv] + [quicksort_b(mayores, comparacion)]
+    pivote = lista[0]
+    menores = [x for x in lista if comp(x, pivote) == -1]
+    mayores = [x for x in lista if comp(x, pivote) == 1]
+    return [quicksort_b(menores)] + [pivote] + [quicksort_b(mayores)]   # REVER Y COMPLETAR
 
-# COMPLETAR
+
+# **Ejercicio 5**: Se tiene la clase de tiempo mostrada a continuación, almacena horas, minutos y segundos:
+#
+# class Time:
+#   def __init__(self, hh, mm, ss):
+#     self.hh = hh
+#     self.mm = mm
+#     self.ss = ss
+# Definir los operadores relacionales necesarios para
+# poder ordenar una lista de tiempos utilizando uno de los algoritmos generalizados.
+
+class Time:
+    def __init__(self, hh, mm, ss):
+        self.hh = hh
+        self.mm = mm
+        self.ss = ss
+    def __str__(self):
+        return "{}:{}:{}".format(self.__formato(self.hh), self.__formato(self.mm), self.__formato(self.ss))
+    def __formato(self, num):
+        if num <= 9:
+            return f"0{num}"
+        else:
+            return f"{num}"
+    def __eq__(self, other):
+        return self.hh == other.hh and self.mm == other.mm and self.ss == other.ss
+
+    def __lt__(self, other):                    # COMPLETAR!!!!!
+        pass
+    def __gt__(self, other):
+        pass
+
+def comparar_tiempo(lista):
+    if len(lista) < 2:
+        return lista
+    eje = Time(12, 0, 0)
+    menores = [x for x in lista if x < eje]
+    mayores = [x for x in lista if x > eje]
+    return [comparar_tiempo(menores)], [eje], [comparar_tiempo(mayores)]
+
+
+time1 = Time(13, 7, 59)
+time2 = Time(15, 1, 32)
+time3 = Time(13, 6, 59)
+ej1 = [time1, time2, time3]
+print(time1 == time2)
+
 

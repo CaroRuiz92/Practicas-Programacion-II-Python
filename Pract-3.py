@@ -188,25 +188,41 @@ class Time:
             return f"{num}"
     def __eq__(self, other):
         return self.hh == other.hh and self.mm == other.mm and self.ss == other.ss
-
-    def __lt__(self, other):                    # COMPLETAR!!!!!
-        pass
+    def __lt__(self, other):
+        if self.hh < other.hh:
+            return True
+        elif self.hh == other.hh and self.mm < other.mm:
+            return True
+        else:
+            return False
     def __gt__(self, other):
-        pass
+        if other.hh < self.hh:
+            return True
+        elif self.hh == other.hh and other.mm < self.mm:
+            return True
+        else:
+            return False
 
 def comparar_tiempo(lista):
-    if len(lista) < 2:
-        return lista
-    eje = Time(12, 0, 0)
-    menores = [x for x in lista if x < eje]
-    mayores = [x for x in lista if x > eje]
-    return [comparar_tiempo(menores)], [eje], [comparar_tiempo(mayores)]
+    tam = len(lista)
+    for i in range(1, tam):
+        item = lista[i]
+        anterior = i-1
+        while anterior >= 0:
+            if item < lista[anterior]:
+                lista[anterior+1] = lista[anterior]
+                anterior -= 1
+            else:
+                break
+        lista[anterior+1] = item
+    return "{}".format(lista)
 
 
 time1 = Time(13, 7, 59)
 time2 = Time(15, 1, 32)
 time3 = Time(13, 6, 59)
+time4 = Time(13, 7, 50)
 ej1 = [time1, time2, time3]
-print(time1 == time2)
+print(comparar_tiempo(ej1))   # REVER FORMATO DE IMPRESIÓN
 
 

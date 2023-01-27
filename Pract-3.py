@@ -226,3 +226,4 @@ ej1 = [time1, time2, time3]
 print(comparar_tiempo(ej1))   # REVER FORMATO DE IMPRESIÓN
 
 
+

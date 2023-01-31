@@ -45,8 +45,8 @@ class Stock(Hash_Table):
             return int(cod)
     def insert(self, codigo, cant):
         hash = self.hash_func(codigo)
-        if self.table[hash] is None:
-            self.table[hash] = cant
+        self.table[hash] = cant
+
 
 # **Ejercicio 3**: Se quiere mejorar la solución anterior.
 # Ahora nos dicen que si bien los códigos van del 000 al 999, nunca se ingresarán más de 50.
@@ -60,7 +60,7 @@ class Stock(Hash_Table):
 # **Ejercicio 4**: Escriba una función de hash que implemente el método de Horner con coeficiente 37.
 # *Ayuda: busque la función ord*
 
-def hash(coeficientes):   # REVISAR
+def funchash(coeficientes):   # REVISAR
     valor = 37
     resultado = 0
     for i in range(0, len(coeficientes)):
@@ -68,9 +68,13 @@ def hash(coeficientes):   # REVISAR
     return resultado
 
 
-# **Ejercicio 5**: Utilizando el resultado numérico de Horner, convierta iterativamente trozos del número a un caracter para producir un string.
+# **Ejercicio 5**: Utilizando el resultado numérico de Horner,
+# convierta iterativamente trozos del número a un caracter para producir un string.
 # Básese en el siguiente extracto de código
 # repetir esto hasta que el numero sea 0, acumular los caracteres
 # caracter = chr(numero % 64 + 64)
 # numero = numero // 64
 
+a = {}
+a["bla"] = 16
+print(a)

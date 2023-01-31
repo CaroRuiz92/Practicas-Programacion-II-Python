@@ -7,6 +7,8 @@ class NodoHash:
         self.next = next
     def __str__(self):
         return f"{self.key}, {self.element}"
+
+
 class HashTable:
     def __init__(self, capacity, hashfunc):
         self.capacity = capacity
@@ -18,13 +20,6 @@ class HashTable:
         pass
     def delete(self, key):
         pass
-
-class HashTableChaining(HashTable):     # REVER ARMADO
-    def insert(self, key, element):
-        node = NodoHash(key, element)
-        index = self.hash(key)
-        node.next = self.T[index]
-        self.T[index] = node
 
 
                     # ACTIVIDADES
@@ -46,16 +41,12 @@ class Hash_Table:
 
 class Stock(Hash_Table):
     def hash_func(self, cod):
-        if len(cod) == 1:
-            return "00" + str(cod)
-        elif len(cod) == 2:
-            return "0" + str(cod)
-        else:
-            return cod
+        if len(cod) == 3:
+            return int(cod)
     def insert(self, codigo, cant):
         hash = self.hash_func(codigo)
         if self.t[hash] is None:
-            self.t[codigo] = cant           # rever
+            self.t[codigo] = cant
 
 # **Ejercicio 3**: Se quiere mejorar la solución anterior.
 # Ahora nos dicen que si bien los códigos van del 000 al 999, nunca se ingresarán más de 50.
@@ -75,3 +66,4 @@ class Stock(Hash_Table):
 # repetir esto hasta que el numero sea 0, acumular los caracteres
 # caracter = chr(numero % 64 + 64)
 # numero = numero // 64
+

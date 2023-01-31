@@ -75,6 +75,3 @@ def funchash(coeficientes):   # REVISAR
 # caracter = chr(numero % 64 + 64)
 # numero = numero // 64
 
-a = {}
-a["bla"] = 16
-print(a)

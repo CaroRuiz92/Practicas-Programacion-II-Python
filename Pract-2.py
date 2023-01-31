@@ -32,7 +32,7 @@ class Hash_Table:
     def __init__(self, capacity, func):
         self.cap = capacity
         self.hash = func
-        self.t = [None] * self.cap
+        self.table = [None] * self.cap
 
 # **Ejercicio 2**: Se quiere rellenar el stock de un supermercado.
 # Se sabe que los códigos de los productos van del 000 al 999.
@@ -45,8 +45,8 @@ class Stock(Hash_Table):
             return int(cod)
     def insert(self, codigo, cant):
         hash = self.hash_func(codigo)
-        if self.t[hash] is None:
-            self.t[codigo] = cant
+        if self.table[hash] is None:
+            self.table[hash] = cant
 
 # **Ejercicio 3**: Se quiere mejorar la solución anterior.
 # Ahora nos dicen que si bien los códigos van del 000 al 999, nunca se ingresarán más de 50.

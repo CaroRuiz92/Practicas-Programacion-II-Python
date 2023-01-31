@@ -60,6 +60,13 @@ class Stock(Hash_Table):
 # **Ejercicio 4**: Escriba una función de hash que implemente el método de Horner con coeficiente 37.
 # *Ayuda: busque la función ord*
 
+def hash(coeficientes):   # REVISAR
+    valor = 37
+    resultado = 0
+    for i in range(0, len(coeficientes)):
+        resultado = resultado * valor + ord(coeficientes[i])
+    return resultado
+
 
 # **Ejercicio 5**: Utilizando el resultado numérico de Horner, convierta iterativamente trozos del número a un caracter para producir un string.
 # Básese en el siguiente extracto de código

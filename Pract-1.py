@@ -388,7 +388,7 @@ def insertTree(data, tree):
         return Tree(data)
     else:
         if data < tree.label:
-            return Tree(tree.label, insertTree(data,tree.left), tree.right)
+            return Tree(tree.label, insertTree(data, tree.left), tree.right)
         elif data > tree.label:
             return Tree(tree.label, tree.left, insertTree(data, tree.right))
         else:

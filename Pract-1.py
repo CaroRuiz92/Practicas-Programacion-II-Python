@@ -259,7 +259,7 @@ class FastQueue:
             self.stack1 = nuevo
             self.stack2 = self.stack1
         else:
-            self.stack2.siguiente = nuevo
+            self.stack1.siguiente = nuevo
             self.stack2 = nuevo
 
     def remove(self, stack):
@@ -278,7 +278,7 @@ class PriorityQueue(Queue):
     def remove(self):
         mayor = 0
         for i in range(1, len(self.items)):
-            if self.items[i] > self.items[mayor]:
+            if self.items[i] > self.items[mayor]:   # i mayor al primer elemento de la lista
                 mayor = i   # Guarda index
         item = self.items[mayor]   # Guarda valor
         self.items[mayor:mayor+1] = []   # Borra valor
@@ -336,21 +336,21 @@ class Tree:
     def __str__(self):
         return str(self.label)
 
-    def printPreOrder(self):               #REVISAR
+    def printPreOrder(self):
         if self.label is None:
             return
         print(self.label)
         self.left.printPreOrder()
         self.right.printPreOrder()
 
-    def printInOrder(self):               #REVISAR
+    def printInOrder(self):
         if self is None:
             return
         self.left.printPreOrder()
         print(self.label)
         self.right.printPreOrder()
 
-    def printPostOrder(self):               #REVISAR
+    def printPostOrder(self):
         if self is None:
             return
         self.left.printPreOrder()
@@ -364,7 +364,7 @@ class Tree:
         return cant
 
     def menor_mayor(self):
-        minimo = maximo = self.label
+        minimo = maximo = self.label   # deben ser labels los mín y máx
 
         if self.left is not None:
             (lminimo, lmaximo) = self.left.menor_mayor()
